@@ -1,9 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".QuestionsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            tools:text="@string/str_question">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/imgFlagImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/desc_image"
+            tools:src="@drawable/ic_argentina">
+        </ImageView>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="16dp"
+           android:orientation="horizontal"
+           android:gravity="center_vertical">
+
+           <ProgressBar
+               android:id="@+id/progressBar"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               style="?android:attr/progressBarStyleHorizontal"
+               android:indeterminate="false"
+               android:max="9"
+               android:minHeight="50dp"
+               android:progress="0">
+           </ProgressBar>
+
+           <TextView
+               android:id="@+id/txtProgress"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:padding="15dp"
+               android:textSize="14sp"
+               tools:text="1/10"
+               >
+           </TextView>
+
+       </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtOptionOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="Argentina">
+        </TextView>
+
+        <TextView
+            android:id="@+id/txtOptionTwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="Argentina">
+        </TextView>
+
+        <TextView
+            android:id="@+id/txtOptionThree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="Argentina">
+        </TextView>
+
+        <TextView
+            android:id="@+id/txtOptionFour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="Argentina">
+        </TextView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/submit"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@color/design_default_color_primary">
+        </androidx.appcompat.widget.AppCompatButton>
+
+    </LinearLayout>
+
+</ScrollView>

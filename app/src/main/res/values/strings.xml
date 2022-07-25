@@ -4,4 +4,7 @@
     <string name="enter_your_name">Please enter your name.</string>
     <string name="e_g_jacky">e.g Jacky</string>
     <string name="start">Start</string>
+    <string name="str_question">What country does this flag belongs to?</string>
+    <string name="desc_image">Quiz Image</string>
+    <string name="submit">Submit</string>
 </resources>
