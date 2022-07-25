@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">FlagQuiz</string>
+    <string name="app_name">Flag Quiz</string>
+    <string name="welcome">Welcome!</string>
+    <string name="enter_your_name">Please enter your name.</string>
+    <string name="e_g_jacky">e.g Jacky</string>
+    <string name="start">Start</string>
 </resources>
