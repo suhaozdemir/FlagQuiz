@@ -1,13 +1,21 @@
 package com.suhaozdemir.flagquiz
 
+import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 
-class QuestionsActivity : AppCompatActivity() {
+class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
+
+    private var mCurrentPosition : Int = 1
+    private var mQuestionList : ArrayList<Question>? = null
+    private var mSelectedOptionPosition : Int = 0
 
     private var progressBar : ProgressBar? = null
     private var txtProgress : TextView? = null
@@ -34,21 +42,97 @@ class QuestionsActivity : AppCompatActivity() {
         txtOptionB = findViewById(R.id.txtOptionTwo)
         txtOptionC = findViewById(R.id.txtOptionThree)
         txtOptionD = findViewById(R.id.txtOptionFour)
-
         btnSubmit = findViewById(R.id.btnSubmit)
 
-        val questionList = Constants.getQuestions()
-        var currPosition = 1
+        txtOptionA?.setOnClickListener(this)
+        txtOptionB?.setOnClickListener(this)
+        txtOptionC?.setOnClickListener(this)
+        txtOptionD?.setOnClickListener(this)
+        btnSubmit?.setOnClickListener(this)
 
-        val question : Question = questionList[currPosition - 1]
-        progressBar?.progress = currPosition
+        mQuestionList = Constants.getQuestions()
 
-        txtProgress?.text = "$currPosition/${progressBar?.max}"
+        setQuestion()
+    }
+
+    private fun setQuestion() {
+        val question: Question = mQuestionList!![mCurrentPosition - 1]
+        progressBar?.progress = mCurrentPosition
+
+        txtProgress?.text = "$mCurrentPosition/${progressBar?.max}"
         txtQuestion?.text = question.question
         imgQuestion?.setImageResource(question.image)
         txtOptionA?.text = question.optionA
         txtOptionB?.text = question.optionB
         txtOptionC?.text = question.optionC
         txtOptionD?.text = question.optionD
+
+        if(mCurrentPosition == mQuestionList!!.size)
+            btnSubmit?.text = "Finish"
+        else
+            btnSubmit?.text = "Next"
+
+    }
+
+    private fun defaultOptionView(){
+        val options = ArrayList<TextView>()
+        txtOptionA?.let{
+            options.add(0, it)
+        }
+        txtOptionB?.let {
+            options.add(1, it)
+        }
+        txtOptionC?.let {
+            options.add(2, it)
+        }
+        txtOptionD?.let {
+            options.add(3, it)
+        }
+
+        for(option in options){
+           option.setTextColor(Color.parseColor("#7A8089"))
+            option.typeface = Typeface.DEFAULT
+            option.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.default_option_border_bg
+            )
+        }
+    }
+
+    private fun selectedOptionView(txtView : TextView, selectedOptionNum : Int){
+        defaultOptionView()
+
+        mSelectedOptionPosition = selectedOptionNum
+        txtView.setTextColor(Color.parseColor("#363A43"))
+        txtView.setTypeface(txtView.typeface, Typeface.BOLD)
+        txtView.background = ContextCompat.getDrawable(
+            this,
+            R.drawable.selected_option_border_bg
+        )
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.txtOptionOne -> {
+                txtOptionA?.let {
+                    selectedOptionView(it, 1)
+                }
+            }
+            R.id.txtOptionTwo -> {
+                txtOptionB?.let {
+                    selectedOptionView(it, 2)
+                }
+            }
+            R.id.txtOptionThree -> {
+                txtOptionC?.let {
+                    selectedOptionView(it, 3)
+                }
+            }
+            R.id.txtOptionFour -> {
+                txtOptionD?.let {
+                    selectedOptionView(it, 4)
+                }
+            }
+        }
     }
 }
