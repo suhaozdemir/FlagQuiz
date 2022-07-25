@@ -56,6 +56,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setQuestion() {
+        defaultOptionView()
         val question: Question = mQuestionList!![mCurrentPosition - 1]
         progressBar?.progress = mCurrentPosition
 
@@ -70,7 +71,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         if(mCurrentPosition == mQuestionList!!.size)
             btnSubmit?.text = "Finish"
         else
-            btnSubmit?.text = "Next"
+            btnSubmit?.text = "Submit"
 
     }
 
@@ -132,6 +133,60 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 txtOptionD?.let {
                     selectedOptionView(it, 4)
                 }
+            }
+            R.id.btnSubmit ->{
+                if (mSelectedOptionPosition == 0){
+                    mCurrentPosition ++
+
+                    when{
+                        mCurrentPosition <= mQuestionList!!.size ->{
+                            setQuestion()
+                        }
+                    }
+                }else{
+                    val question = mQuestionList?.get(mCurrentPosition -1)
+                    if(question!!.answer != mSelectedOptionPosition){
+                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                    }
+                    answerView(question.answer, R.drawable.correct_option_border_bg)
+
+                    if(mCurrentPosition == mQuestionList!!.size)
+                        btnSubmit?.text = "Finish"
+                    else
+                        btnSubmit?.text = "Go to the next question"
+
+                    mSelectedOptionPosition = 0
+
+                }
+            }
+        }
+    }
+
+    private fun answerView(answer : Int, drawableView : Int){
+        when(answer){
+            1 -> {
+                txtOptionA?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
+            }
+            2 -> {
+                txtOptionB?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
+            }
+            3 -> {
+                txtOptionC?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
+            }
+            4 -> {
+                txtOptionD?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
             }
         }
     }
