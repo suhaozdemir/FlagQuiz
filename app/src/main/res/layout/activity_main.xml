@@ -59,6 +59,7 @@
                 android:layout_marginTop="15dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etxt_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/e_g_jacky"
@@ -68,6 +69,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btnStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
