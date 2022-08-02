@@ -1,5 +1,6 @@
 package com.suhaozdemir.flagquiz
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mCurrentPosition : Int = 1
     private var mQuestionList : ArrayList<Question>? = null
     private var mSelectedOptionPosition : Int = 0
+    private var mUserName : String? = null
+    private var mCorrectAnswers : Int = 0
 
     private var progressBar : ProgressBar? = null
     private var txtProgress : TextView? = null
@@ -32,6 +35,8 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questions)
+
+        mUserName = intent.getStringExtra(Constants.USER_NAME)
 
         progressBar = findViewById(R.id.progressBar)
         txtProgress = findViewById(R.id.txtProgress)
@@ -67,6 +72,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         txtOptionB?.text = question.optionB
         txtOptionC?.text = question.optionC
         txtOptionD?.text = question.optionD
+        btnSubmit?.setEnabled(false)
 
         if(mCurrentPosition == mQuestionList!!.size)
             btnSubmit?.text = "Finish"
@@ -117,21 +123,25 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
             R.id.txtOptionOne -> {
                 txtOptionA?.let {
                     selectedOptionView(it, 1)
+                    btnSubmit?.setEnabled(true)
                 }
             }
             R.id.txtOptionTwo -> {
                 txtOptionB?.let {
                     selectedOptionView(it, 2)
+                    btnSubmit?.setEnabled(true)
                 }
             }
             R.id.txtOptionThree -> {
                 txtOptionC?.let {
                     selectedOptionView(it, 3)
+                    btnSubmit?.setEnabled(true)
                 }
             }
             R.id.txtOptionFour -> {
                 txtOptionD?.let {
                     selectedOptionView(it, 4)
+                    btnSubmit?.setEnabled(true)
                 }
             }
             R.id.btnSubmit ->{
@@ -141,12 +151,21 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     when{
                         mCurrentPosition <= mQuestionList!!.size ->{
                             setQuestion()
+                        }else ->{
+                            val intent = Intent(this, ResultActivity::class.java)
+                        intent.putExtra(Constants.USER_NAME, mUserName)
+                        intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
+                        intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionList?.size)
+                        startActivity(intent)
+                        finish()
                         }
                     }
                 }else{
                     val question = mQuestionList?.get(mCurrentPosition -1)
                     if(question!!.answer != mSelectedOptionPosition){
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                    }else{
+                        mCorrectAnswers++
                     }
                     answerView(question.answer, R.drawable.correct_option_border_bg)
 
